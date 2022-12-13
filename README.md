@@ -35,7 +35,9 @@ BERRY will be freely accessible online soon at:  [berry-app.vhio.org](https://be
 - If used without graphical interface in Linux systems, xvfb-run is needed (`apt-get install xvfb-run`)
 
 ## Installation
-Download or clone the app repo in a directory, e.g., /berry
+Download or clone the app repo in a directory, this will create the folder /berry-app:
+
+`git clone https://github.com/radiomicsvhio/berry-app`
 
 Though not necessary, you may create a new python/conda environment:
 
@@ -45,7 +47,9 @@ Though not necessary, you may create a new python/conda environment:
 
 Install python packages:
 
-`pip install -r /berry/requirements.txt`
+`cd /berry-app`
+
+`pip install -r requirements.txt`
 
 Optionally:
 
@@ -62,8 +66,9 @@ In `settings.py`, place the path of the Slicer executable as: `SLICER_EXEC="/sli
 In `settings.py`, place the path of the dcm2niix executable as: `DCM2NIIX="/dcm2niix/dcm2niix"`
 
 ## Usage
-To run the pipeline, call the `run.py` file as such:
-`python /berry/run.py --p_dsc /path_to_DSC_image --p_t1 /path_to_T1_image --p_output /desired_output_path`
+To run the pipeline, call the `run.py` file (full path `python /berry-app/run.py`):
+
+`python run.py --p_dsc /path_to_DSC_image --p_t1 /path_to_T1_image --p_output /desired_output_path`
 
 Input DSC and T1wCE volumes may be in DICOM, Nifti or NRRD formats.
 Segmentation mask files can be provided instead of the T1 volume.
