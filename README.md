@@ -4,7 +4,7 @@ The BERRY app uses a pretrained CNN classifier scheme for voxel-wise classificat
 
 ![Probability maps](doc/img/probmaps.png)
 
-This is the code repository of the BERRY tumour classification pipeline described in the work *An accessible deep learning tool for voxel-wise classification of brain malignancies from perfusion MRI* by Raquel Perez-Lopez and colleagues from the Vall d'Hebron Institute of Oncology (VHIO), Barcelona, Spain. Manuscript currently under review.
+This is the code repository of the BERRY tumour classification pipeline described in the work [*An accessible deep learning tool for voxel-wise classification of brain malignancies from perfusion MRI*](https://doi.org/10.21203/rs.3.rs-2362207/v1) (preprint) by Raquel Perez-Lopez and colleagues from the Vall d'Hebron Institute of Oncology (VHIO), Barcelona, Spain.
 
 
 BERRY will be freely accessible online soon at:  [berry-app.vhio.org](https://berry-app.vhio.org/)
@@ -76,8 +76,10 @@ Segmentation mask files can be provided instead of the T1 volume.
 See all the options in the docstring help of `run.py`.
 
 ## Referencing
-- Github: [github.com/radiomicsvhio/berry-app](https://github.com/radiomicsvhio/berry-app)
-- Raquel Perez-Lopez et al., *An accessible deep learning tool for voxel-wise classification of brain malignancies from perfusion MRI* (article under review)
+- Preprint:
+>Raquel Perez-Lopez et al., [*An accessible deep learning tool for voxel-wise classification of brain malignancies from perfusion MRI*](https://doi.org/10.21203/rs.3.rs-2362207/v1), DOI: 10.21203/rs.3.rs-2362207/v1
+- Github:
+>[github.com/radiomicsvhio/berry-app](https://github.com/radiomicsvhio/berry-app)
 
 ## License
 Please, see `license.txt`
