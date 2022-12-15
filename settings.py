@@ -14,7 +14,7 @@ MRML= config('MRML', default=os.path.join(os.path.dirname(SLICER_EXEC).rstrip(os
 
 DCM2NIIX=config('DCM2NIIX', default="/programs/dcm2niix" )
 
-MODEL1 = config('MODEL1', default="/models/lym_current" )
-MODEL2 = config('MODEL2', default="/models/gbmet_current" )
+MODEL1 = config('MODEL1', default="./models/lym_current" )
+MODEL2 = config('MODEL2', default="./models/gbmet_current" )
 
 DEBUG = config('DEBUG', default=False, cast=bool)
