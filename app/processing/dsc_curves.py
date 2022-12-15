@@ -246,7 +246,7 @@ def normalize_to_wm(p_info, imdsc, mask, time, p_normwm, output_path=[], out_plo
     flag_fail = check_mask_curve(curve_norm[ttp_norm])
     if flag_fail:
         logger.warning('MASK curve higher or equal than WM curve. Results may be wrong. Check masks and curves')
-        end_execution()
+        # end_execution()
     
     curvearr = np.array(curvearr)
     with open(os.path.join(outfolder,'all.txt'), 'w+') as txtfile:
