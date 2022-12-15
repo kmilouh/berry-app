@@ -45,9 +45,7 @@ Though not necessary, you may create a new python/conda environment:
 
 `conda activate berryapp`
 
-Install python packages:
-
-`cd /berry-app`
+Install python packages specified in the file requirements.txt from the berry-app folder:
 
 `pip install -r requirements.txt`
 
