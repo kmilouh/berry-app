@@ -57,7 +57,7 @@ def main(p_dsc, p_t1, p_output, p_model1, p_model2, threshold_lym, threshold_met
         os.makedirs(regoutput, exist_ok=True)
         
         p_dsc2, _ = dicom_convert.DICOM2nrrd(p_dsc, p_im, outfilename='DSC', dcm2niix_exe=settings.DCM2NIIX)
-        p_dscmv = os.path.join(os.path.dirname(p_dsc2), 'DSC_slicer.nrrd')
+        p_dscmv = os.path.join(p_im, 'DSC_slicer.nrrd')
         _ = dsc_multivolume(p_dsc2, p_dscmv)
         _, p_dscref, _, p_brain = preprocess_DSC.read_write_dsc_snaps(p_dscmv, p_im, noStrip)
         if not noMoCo:
