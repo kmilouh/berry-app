@@ -234,7 +234,6 @@ if __name__ == "__main__":
         else:
             p_t1 = None
         p_output = args.p_output
-        protocol = args.protocol
         th_lym = args.th_lym
         th_met = args.th_met
         p_lesion = get_file_from_folder(args.p_lesion)

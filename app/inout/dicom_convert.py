@@ -92,6 +92,9 @@ def json2dict(p_json):
 def convert2nrrd(inputpath, outputpath, isUInt, jsoninfo=None):
     logger.info('sitk nii to nrrd conversion')
     im = read_image_sitk(inputpath, isUInt)
+    if any(['Multivolume' for k in im.GetMetaDataKeys()]):
+        logger.info('Slicer multivolume detected - skipping compatibility changes')
+        return inputpath
     if im.GetDimension()==4:
         if jsoninfo:
             jdict = json2dict(jsoninfo)
@@ -154,13 +157,13 @@ def DICOM2nrrd(inputpath, outputpath, outfilename, dcm2niix_exe):
         newfilename = os.path.join(outputpath,outfilename+'.nrrd')
         path, base, ext = split_filename(inputpath)
         if os.path.exists(inputpath.replace(ext,'.json')):
-            convert2nrrd(inputpath, newfilename, isUInt=True, jsoninfo=inputpath.replace(ext,'.json'))
+            outfilename = convert2nrrd(inputpath, newfilename, isUInt=True, jsoninfo=inputpath.replace(ext,'.json'))
         else:
-            convert2nrrd(inputpath, newfilename, isUInt=True)
-        return newfilename,None
+            outfilename = convert2nrrd(inputpath, newfilename, isUInt=True)
+        return outfilename,None
     else:
         outfile = DICOM2nii(inputpath, outputpath, outfilename, dcm2niix_exe)
         path, base, ext = split_filename(outfile)
         newfilename = os.path.join(path, base+'.nrrd')
-        convert2nrrd(outfile, newfilename, isUInt=True, jsoninfo=outfile.replace(ext,'.json'))
-        return newfilename,outfile
+        outfilename = convert2nrrd(outfile, newfilename, isUInt=True, jsoninfo=outfile.replace(ext,'.json'))
+        return outfilename,outfile

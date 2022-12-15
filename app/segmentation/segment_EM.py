@@ -27,19 +27,25 @@ def EMsegment(im_t1_path, output_path, slicer_exe, emsegcli, mrml):
     params_str = '--taskPreProcessingSetting :C1:C0 --intermediateResultsDirectory '+wrap_string(outfolder,'"')+' --disableMultithreading -1 --dontUpdateIntermediateData -1 --registrationAffineType 1 --registrationDeformableType 0'
     call_str = " ".join([cli_exe, all_io, params_str])
     logger.debug('CMD call: %s', call_str)
-    exitcode, out, err = get_exitcode_stdout_stderr(call_str)
+    try:
+        exitcode, out, err = get_exitcode_stdout_stderr(call_str)
+    except FileNotFoundError as e:
+        logger.warning('xvfb-run was not detected. If on Linux, please install it!')
+        if 'xvfb-run' in e.filename:
+            logger.debug('Attempting to run without xvfb-run...')
+            cli_exe = slicer_exe + ' --launch ' + emsegcli
+            call_str = " ".join([cli_exe, all_io, params_str])
+            logger.debug('CMD call: %s', call_str)
+            exitcode, out, err = get_exitcode_stdout_stderr(call_str)
+            logger.debug('CMD output:\n%s',out.decode())
+            if exitcode:
+                logger.error('Terminated with error code:\n%s',err.decode())
+                end_execution()
+        else:
+            raise e
     logger.debug('CMD output:\n%s',out.decode())
     if exitcode:
-        logger.error('Terminated with error code. If on Linux without interface, please ensure xvfb-run is installed.\n Error:\n%s',err.decode())
-        logger.debug('Attempting to run normally...')
-        cli_exe = slicer_exe + ' --launch ' + emsegcli
-        call_str = " ".join([cli_exe, all_io, params_str])
-        logger.debug('CMD call: %s', call_str)
-        exitcode, out, err = get_exitcode_stdout_stderr(call_str)
-        logger.debug('CMD output:\n%s',out.decode())
-        if exitcode:
-            logger.error('Terminated with error code:\n%s',err.decode())
-            end_execution()
+        logger.error('Terminated with error code.\n%s',err.decode())
     timeout = time.time() + 30
     while((not os.path.exists(os.path.join(outfolder,'HEMS-label.nrrd'))) and time.time()<timeout):
         logger.debug('Waiting for HEMS file writer to finish...')
